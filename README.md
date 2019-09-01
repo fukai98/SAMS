@@ -8,7 +8,35 @@
 git clone https://github.com/fukai98/SAMS.git
 ```
 
-### 任务要求
+### 代码框架
+
+- 本代码是在macOS平台上编译通过
+
+- 如需在Windows上编译，需要更改main.c中的清屏函数
+
+- ```C
+  // 注释掉不是自己电脑系统的那一部分代码
+  #define CLEAR() system("clear") // Unix or Linux
+  #define CLEAR() system("cls")		// windows
+  ```
+
+- 代码中采用链表存储每个学生的数据，具体见studemt.c和student.h
+
+- test_small.txt为导入文件样例，可直接使用
+
+- data.txt为导出文件
+
+- text为Mac平台上的二进制可执行文件，执行代码如下
+
+  ```ssh
+  ./test
+  ```
+
+- 代码的导入测试样例可通过在Excel上建立之后复制到txt文件当中
+
+  
+
+### 考核任务要求
 
 - 必须含有三个独立代码文件：main.c，student.c，student.h
 
