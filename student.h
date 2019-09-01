@@ -22,5 +22,6 @@ void StuSearch(StuList head, int id);                                     // 查
 void StuOutput(StuList head);                                             // 遍历打印整个链表内容
 void StuBubbleSort(StuList *head, int sort_type);                         // 按要求降序冒泡排序(0:总分，1:语文，2:数学，3:英语)
 void StuReadFile(StuList *head, char *file_name);                         // 从文件中添加新的结点
+void StuWriteFile(StuList head, char *file_name);                         // 将结点信息导出至文件
 
 #endif

@@ -31,15 +31,19 @@ void StuInsert(StuList *head, char *na, int id, int ch, int ma, int en) {
 // 删除一个结点(按学号查询删除的结点)
 void StuDelete(StuList *head, int id) {
     StuNode *tmp, *de;
+    tmp = *head;
     while (tmp->next != NULL) {
         if (tmp->next->ID == id) {
             de = tmp->next;
             tmp->next = tmp->next->next;
             free(de);
+            printf("\t\tDelete OK!\n");
+            return;
         }
         tmp = tmp->next;
-        if (tmp == NULL) return;
+        if (tmp == NULL) break;
     }
+    printf("\t\tNULL\n");
 }
 
 // 删除整个链表
@@ -73,7 +77,7 @@ void StuReset(StuList *head, int id) {
             return;
         }
     }
-    printf("NULL\n");
+    printf("\t\tNULL\n");
 }
 
 // 查询单个结点
@@ -168,8 +172,8 @@ void StuReadFile(StuList *head, char *file_name) {
             len = strlen(buf);
             for (int i = 0; i <= len; ++i) {
                 tmp[n][cnt++] = buf[i];
-                if (buf[i] == ' ' || buf[i] == '\0') {
-                    tmp[n][cnt] = '\0';
+                if (buf[i] == ' ' || buf[i] == '\0' || buf[i] == '\t') {
+                    tmp[n][cnt - 1] = '\0';
                     cnt = 0;
                     ++n;
                 }
@@ -183,5 +187,24 @@ void StuReadFile(StuList *head, char *file_name) {
             StuInsert(head, name, id, ch, ma, en);
         }
         printf("\t\t文件导入完成!\n");
+    }
+}
+
+// 将结点信息导出至文件
+void StuWriteFile(StuList head, char *file_name) {
+    char buf[MAX_LINE];
+    FILE *fp;
+    StuNode *tmp;
+    int cnt = 0;
+    if ((fp = fopen(file_name, "w")) == NULL) {
+        printf("\t\t文件打开错误!\n");
+        exit(1);
+    } else {
+        fprintf(fp, "%-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", "NAME", "ID", "CH", "MA", "EN", "TOTAL", "RANKING");
+        for (tmp = head->next; tmp != NULL; tmp = tmp->next) {
+            fprintf(fp, "%-10s %-10d %-10d %-10d %-10d %-10d %-10d\n", tmp->name, tmp->ID, tmp->chinese_score, tmp->math_score, tmp->english_score, tmp->total_score, tmp->ranking);
+        }
+        fclose(fp);
+        printf("\t\t文件导出完成!\n");
     }
 }

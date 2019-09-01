@@ -11,11 +11,13 @@ void AddInfo(void);                 // 手动添加成绩
 void ReadFileInfo(void);            // 文件导入
 void InquireScore(void);            // 查询个人成绩
 void ResetScore(void);              // 修改个人成绩
-void ShowRanking(void);             //查看成绩排名
+void DeleteScore(void);             // 删除学生成绩
+void ShowRanking(void);             // 查看成绩排名
+void WriteFileInfo(void);           // 文件导出
 void TurnOff(void);                 // 退出程序
 
 StuList stu;
-void (*Func[])(void) = {Menu, AddInfo, ReadFileInfo, InquireScore, ResetScore, ShowRanking, TurnOff};
+void (*Func[])(void) = {Menu, AddInfo, ReadFileInfo, InquireScore, ResetScore, DeleteScore, ShowRanking, WriteFileInfo, TurnOff};
 
 int main() {
     stu = StuSysInit();
@@ -39,7 +41,7 @@ static inline void InputNum(void) {
     printf("\t\t请输入序号: ");
     scanf("%s", tmp);
     select = atoi(tmp);
-    while (select < 1 || select > 7) {
+    while (select < 1 || select > 8) {
         printf("\t\t输入错误，请重新输入序号: ");
         scanf("%s", tmp);
         select = atoi(tmp);
@@ -68,11 +70,12 @@ void Menu(void) {
     ShowLine();
     printf("\t\t%-25s %-30s %15s\n", "*", "1:手动添加成绩", "*");
     printf("\t\t%-25s %-30s %15s\n", "*", "2:文件导入成绩", "*");
-    printf("\t\t%-25s %-30s %15s\n", "*", "3:查询个人成绩", "*");
-    printf("\t\t%-25s %-30s %15s\n", "*", "4:修改个人成绩", "*");
-    printf("\t\t%-25s %-30s %15s\n", "*", "5:查看成绩排名", "*");
-    printf("\t\t%-25s %-30s %15s\n", "*", "6:导出学生成绩", "*");
-    printf("\t\t%-25s %-30s %15s\n", "*", "7:退出成绩系统", "*");
+    printf("\t\t%-25s %-30s %15s\n", "*", "3:查询学生成绩", "*");
+    printf("\t\t%-25s %-30s %15s\n", "*", "4:修改学生成绩", "*");
+    printf("\t\t%-25s %-30s %15s\n", "*", "5:删除学生成绩", "*");
+    printf("\t\t%-25s %-30s %15s\n", "*", "6:查看成绩排名", "*");
+    printf("\t\t%-25s %-30s %15s\n", "*", "7:导出学生成绩", "*");
+    printf("\t\t%-25s %-30s %15s\n", "*", "8:退出成绩系统", "*");
     ShowLine();
     InputNum();
 }
@@ -95,6 +98,13 @@ void ReadFileInfo(void) {
     InputNum();
 }
 
+// 文件导出
+void WriteFileInfo(void) {
+    StuBubbleSort(&stu, 0);
+    StuWriteFile(stu, "data.txt");
+    InputNum();
+}
+
 // 查询个人成绩
 void InquireScore(void) {
     int id;
@@ -113,6 +123,21 @@ void ResetScore(void) {
     printf("\t\t请输入待查询学生的学号: ");
     scanf("%d", &id);
     StuReset(&stu, id);
+    StuBubbleSort(&stu, 0);
+    InputNum();
+}
+
+// 删除学生成绩
+void DeleteScore(void) {
+    int id;
+    printf("\t\t请输入待删除学生的学号(输入0表示删除全部学生成绩): ");
+    scanf("%d", &id);
+    if (id == 0) {
+        StuDeleteAll(&stu);
+        printf("\t\t已清空全部成绩!\n");
+    } else {
+        StuDelete(&stu, id);
+    }
     StuBubbleSort(&stu, 0);
     InputNum();
 }
