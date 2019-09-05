@@ -26,10 +26,12 @@ git clone https://github.com/fukai98/SAMS.git
 
 - data.txt为导出文件
 
-- text为Mac平台上的二进制可执行文件，执行代码如下
+- SAMS.exe为Windows平台下的执行文件
+
+- SAMS.out为Mac平台上的二进制可执行文件，执行代码如下
 
   ```ssh
-  ./test
+  ./SAMS.out
   ```
 
 - 代码的导入测试样例可通过在Excel上建立之后复制到txt文件当中
