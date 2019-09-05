@@ -10,7 +10,7 @@ git clone https://github.com/fukai98/SAMS.git
 
 ### 代码框架
 
-- 本代码是在macOS平台上编译通过
+- 本代码已在macOS平台上编译通过
 
 - 如需在Windows上编译，需要更改main.c中的清屏函数
 
