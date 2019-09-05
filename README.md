@@ -16,7 +16,7 @@ git clone https://github.com/fukai98/SAMS.git
 
 - ```C
   // 注释掉不是自己电脑系统的那一部分代码
-  #define CLEAR() system("clear") // Unix or Linux
+  #define CLEAR() system("clear") 	// Unix or Linux
   #define CLEAR() system("cls")		// windows
   ```
 
